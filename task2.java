@@ -10,7 +10,7 @@ public class Task2 {
         int zeroAgain = 0;
         char letterR = 'r';
         int oneMore = 1;
-        int d = 0;
+        char d = 'd';
         float twoPointZero = 2.0f;
         boolean truth = true;
 

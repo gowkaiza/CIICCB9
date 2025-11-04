@@ -1,0 +1,28 @@
+	import java.util.Scanner;
+2	
+3	public class Task5 {
+4	    public static void main(String[] args) {
+5	        Scanner input = new Scanner(System.in);
+6	
+7	        System.out.print("Enter first number: ");
+8	        int num1 = input.nextInt();
+9	
+10	        System.out.print("Enter second number: ");
+11	        int num2 = input.nextInt();
+12	
+13	        System.out.print("Enter third number: ");
+14	        int num3 = input.nextInt();
+15	
+16	        if (num1 == num2 && num2 == num3) {
+17	            System.out.println("All numbers are equal");
+18	        } else if (num1 >= num2 && num1 >= num3) {
+19	            System.out.println("The largest number is: " + num1);
+20	        } else if (num2 >= num1 && num2 >= num3) {
+21	            System.out.println("The largest number is: " + num2);
+22	        } else {
+23	            System.out.println("The largest number is: " + num3);
+24	        }
+25	
+26	        input.close();
+27	    }
+28	}

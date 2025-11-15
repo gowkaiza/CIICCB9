@@ -10,7 +10,7 @@ public class Task5 {
 
         System.out.print("Enter second number: ");
         int num2 = input.nextInt();              // Read second number
-
+2
         System.out.print("Enter third number: ");
         int num3 = input.nextInt();              // Read third number
 

@@ -18,4 +18,4 @@ public class LongQuiz {
         // Therefore, no output will be printed
     }
 }
-}
+

@@ -12,7 +12,6 @@ public class BankingApp {
     public static void main(String[] args) {
 
         double balance = 10000.00;
-        double recipientBalance = 5000.00; // sample recipient account
         int attempts = 0;
         boolean authenticated = false;
         ArrayList<String> transactionHistory = new ArrayList<>();
@@ -55,6 +54,7 @@ public class BankingApp {
             System.out.print("Choose an option: ");
 
             int choice = input.nextInt();
+            input.nextLine(); // consume newline
 
             switch (choice) {
                 case 1:
@@ -64,6 +64,7 @@ public class BankingApp {
                 case 2:
                     System.out.print("Enter amount to withdraw: ₱");
                     double withdrawAmount = input.nextDouble();
+                    input.nextLine(); // consume newline
                     if (withdrawAmount <= 0) {
                         System.out.println("Invalid amount!");
                     } else if (withdrawAmount > balance) {
@@ -71,28 +72,36 @@ public class BankingApp {
                     } else {
                         balance -= withdrawAmount;
                         System.out.println("Withdrawal successful! Remaining balance: ₱" + balance);
-                        addTransaction(transactionHistory, "Withdraw", withdrawAmount);
+                        addTransaction(transactionHistory, "Withdraw", withdrawAmount, "Self");
                     }
                     break;
 
                 case 3:
+                    System.out.print("Enter recipient account number: ");
+                    String depositAccNum = input.nextLine();
+                    System.out.print("Enter recipient name: ");
+                    String depositName = input.nextLine();
                     System.out.print("Enter amount to deposit: ₱");
                     double depositAmount = input.nextDouble();
+                    input.nextLine(); // consume newline
+
                     if (depositAmount <= 0) {
                         System.out.println("Invalid amount!");
                     } else {
                         balance += depositAmount;
                         System.out.println("Deposit successful! Current balance: ₱" + balance);
-                        addTransaction(transactionHistory, "Deposit", depositAmount);
+                        addTransaction(transactionHistory, "Deposit", depositAmount, depositName + " (" + depositAccNum + ")");
                     }
                     break;
 
                 case 4:
-                    System.out.print("Enter recipient account name: ");
-                    input.nextLine(); // consume newline
-                    String recipient = input.nextLine();
+                    System.out.print("Enter recipient account number: ");
+                    String transferAccNum = input.nextLine();
+                    System.out.print("Enter recipient name: ");
+                    String transferName = input.nextLine();
                     System.out.print("Enter amount to transfer: ₱");
                     double transferAmount = input.nextDouble();
+                    input.nextLine(); // consume newline
 
                     if (transferAmount <= 0) {
                         System.out.println("Invalid amount!");
@@ -100,9 +109,8 @@ public class BankingApp {
                         System.out.println("Insufficient balance!");
                     } else {
                         balance -= transferAmount;
-                        recipientBalance += transferAmount;
                         System.out.println("Transfer successful! Remaining balance: ₱" + balance);
-                        addTransaction(transactionHistory, "Transfer to " + recipient, transferAmount);
+                        addTransaction(transactionHistory, "Transfer", transferAmount, transferName + " (" + transferAccNum + ")");
                     }
                     break;
 
@@ -128,11 +136,11 @@ public class BankingApp {
     }
 
     // --------------------
-    // ADD TRANSACTION WITH TIMESTAMP
+    // ADD TRANSACTION WITH TIMESTAMP AND RECIPIENT INFO
     // --------------------
-    public static void addTransaction(ArrayList<String> history, String type, double amount) {
+    public static void addTransaction(ArrayList<String> history, String type, double amount, String recipient) {
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        history.add(timeStamp + " - " + type + ": ₱" + amount);
+        history.add(timeStamp + " - " + type + " to " + recipient + ": ₱" + amount);
     }
 
     // --------------------
@@ -144,7 +152,6 @@ public class BankingApp {
             char[] passwordArray = console.readPassword(prompt);
             return new String(passwordArray);
         } else {
-            // fallback for IDEs
             Scanner scanner = new Scanner(System.in);
             System.out.print(prompt);
             return scanner.nextLine();

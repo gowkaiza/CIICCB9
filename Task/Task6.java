@@ -1,6 +1,6 @@
 package Task;
 
-public class Task6 {   // <-- You MUST add a class!
+public class Task6 {   
 
     public static void main(String[] args) {
 

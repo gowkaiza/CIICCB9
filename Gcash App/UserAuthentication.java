@@ -72,6 +72,45 @@ public class UserAuthentication {
 
     // Change PIN
     public static void changePin() {
+    if (loggedInUserId == null) {
+        System.out.println("You need to login first!");
+        return;
+    }
+
+    User user = users.get(loggedInUserId);
+
+    // Ask for current PIN
+    System.out.print("Enter current PIN: ");
+    String currentPin = scanner.nextLine().trim();
+
+    if (!user.pin.equals(currentPin)) {
+        System.out.println("Incorrect current PIN!");
+        return;
+    }
+
+    // Ask for new PIN
+    System.out.print("Enter new PIN: ");
+    String newPin = scanner.nextLine().trim();
+
+    if (newPin.isEmpty()) {
+        System.out.println("New PIN cannot be empty!");
+        return;
+    }
+
+    // Confirm new PIN
+    System.out.print("Re-enter new PIN: ");
+    String confirmPin = scanner.nextLine().trim();
+
+    if (!newPin.equals(confirmPin)) {
+        System.out.println("PINs do not match!");
+        return;
+    }
+
+    // Update PIN
+    user.pin = newPin;
+    System.out.println("PIN updated successfully!");
+}
+    public static void changePin() {
         if (loggedInUserId == null) {
             System.out.println("You need to login first!");
             return;

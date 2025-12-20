@@ -132,8 +132,11 @@ public class BankingApp {
                 default:
                     System.out.println("Invalid choice!");
             }
+     
         }
     }
+
+
 
     // --------------------
     // ADD TRANSACTION WITH TIMESTAMP AND RECIPIENT INFO

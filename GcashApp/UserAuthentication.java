@@ -1,3 +1,5 @@
+package GcashApp;
+
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -46,29 +48,37 @@ public class UserAuthentication {
                 return;
             }
         }
-
+        // Check if number already exists
+        for (User u : users.values()) {
+            if (u.number.equals(number)) {
+                System.out.println("Number already registered!");
+                return;
+            }
         User user = new User(userIdCounter, name, email, number, pin);
         users.put(userIdCounter, user);
         System.out.println("Registration successful! Your ID: " + userIdCounter);
         userIdCounter++;
+        }
     }
 
     // Login
     public static void loginUser() {
-        System.out.print("Enter Email: ");
-        String email = scanner.nextLine().trim();
-        System.out.print("Enter PIN: ");
-        String pin = scanner.nextLine().trim();
+    System.out.print("Enter Number: ");
+    String number = scanner.nextLine().trim();
 
-        for (User user : users.values()) {
-            if (user.email.equals(email) && user.pin.equals(pin)) {
-                loggedInUserId = user.id;
-                System.out.println("Login successful! Welcome " + user.name);
-                return;
-            }
+    System.out.print("Enter PIN: ");
+    String pin = scanner.nextLine().trim();
+
+    for (User user : users.values()) {
+        if (user.number.equals(number) && user.pin.equals(pin)) {
+            loggedInUserId = user.id;
+            System.out.println("Login successful! Welcome " + user.name);
+            return;
         }
-        System.out.println("Invalid email or PIN.");
     }
+
+    System.out.println("Invalid number or PIN.");
+}
 
     // Change PIN
     public static void changePin() {
@@ -110,23 +120,7 @@ public class UserAuthentication {
     user.pin = newPin;
     System.out.println("PIN updated successfully!");
 }
-    public static void changePin() {
-        if (loggedInUserId == null) {
-            System.out.println("You need to login first!");
-            return;
-        }
-
-        System.out.print("Enter new PIN: ");
-        String newPin = scanner.nextLine().trim();
-        if (newPin.isEmpty()) {
-            System.out.println("PIN cannot be empty!");
-            return;
-        }
-
-        users.get(loggedInUserId).pin = newPin;
-        System.out.println("PIN updated successfully!");
-    }
-
+    
     // Logout
     public static void logout() {
         if (loggedInUserId == null) {
@@ -164,6 +158,8 @@ public class UserAuthentication {
                 default:
                     System.out.println("Invalid choice. Try again!");
             }
+            
         }
     }
+                  
 }
